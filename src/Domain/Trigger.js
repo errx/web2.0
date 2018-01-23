@@ -28,6 +28,7 @@ export type Trigger = {
         msg?: string,
     |},
     timestamp?: number,
+    is_pull_type?: boolean,
 };
 
 export type TriggerList = {|
