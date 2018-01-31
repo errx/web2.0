@@ -53,6 +53,7 @@ export default function TriggerInfo({ data, triggerState, supportEmail, onThrott
         tags,
         throttling,
         is_pull_type: isPullType,
+        dashboard,
     } = data;
     const { state, msg: exceptionMessage } = triggerState;
 
