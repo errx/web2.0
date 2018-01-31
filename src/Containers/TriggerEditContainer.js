@@ -18,6 +18,7 @@ type State = {
     error: ?string,
     trigger: ?Trigger,
     tags: ?Array<string>,
+    grafanaPrefix: ?string,
 };
 
 class TriggerEditContainer extends React.Component<Props, State> {
@@ -27,6 +28,7 @@ class TriggerEditContainer extends React.Component<Props, State> {
         error: null,
         trigger: null,
         tags: null,
+        grafanaPrefix: null,
     };
     triggerForm: ?ValidationContainer;
 
@@ -49,7 +51,10 @@ class TriggerEditContainer extends React.Component<Props, State> {
         try {
             const trigger = await moiraApi.getTrigger(id);
             const { list } = await moiraApi.getTagList();
-            this.setState({ loading: false, trigger: trigger, tags: list });
+            const { grafana_prefix: grafanaPrefix } = await moiraApi.getConfig();
+
+
+            this.setState({ loading: false, trigger: trigger, tags: list, grafanaPrefix: grafanaPrefix });
         } catch (error) {
             this.setState({ error: error.message });
         }
@@ -94,7 +99,7 @@ class TriggerEditContainer extends React.Component<Props, State> {
     }
 
     render(): React.Node {
-        const { loading, error, trigger, tags } = this.state;
+        const { loading, error, trigger, tags, grafanaPrefix } = this.state;
         return (
             <Layout loading={loading} error={error}>
                 <LayoutContent>
@@ -106,6 +111,7 @@ class TriggerEditContainer extends React.Component<Props, State> {
                                     <TriggerEditForm
                                         data={trigger}
                                         tags={tags || []}
+                                        grafanaPrefix={grafanaPrefix}
                                         onChange={update => this.handleChange(update)}
                                     />
                                 </ValidationContainer>

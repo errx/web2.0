@@ -1,9 +1,9 @@
 // @flow
 import * as React from "react";
 import { concat, difference } from "lodash";
-import { RowStack, Fit, Fill } from "../ItemsStack/ItemsStack";
+import { Fill, Fit, RowStack } from "../ItemsStack/ItemsStack";
 import type { Trigger } from "../../Domain/Trigger";
-import { ValidationWrapperV1, tooltip, type ValidationInfo } from "react-ui-validations";
+import { tooltip, type ValidationInfo, ValidationWrapperV1 } from "react-ui-validations";
 import Icon from "retail-ui/components/Icon";
 import Input from "retail-ui/components/Input";
 import Textarea from "retail-ui/components/Textarea";
@@ -24,6 +24,7 @@ import ToggleWithLabel from "../Toggle/Toggle";
 type Props = {|
     data: $Shape<Trigger>,
     tags: Array<string>,
+    grafanaPrefix: ?string,
     onChange: ($Shape<Trigger>) => void,
 |};
 
@@ -50,6 +51,59 @@ export default class TriggerEditForm extends React.Component<Props, State> {
                   message: message || "Can't be empty",
               }
             : null;
+    }
+
+    validateDashboard(valueRaw: string, grafanaPrefix?: string): ?ValidationInfo {
+        const value = valueRaw.trim();
+        if (value.length === 0) {
+            return;
+        }
+        if (grafanaPrefix != null) {
+            //
+        } else {
+            return {
+                type: "lostfocus",
+                message: "Grafana is not configured. This field should be empty",
+            };
+        }
+
+        let url;
+        try {
+            url = new URL(value);
+        } catch (e) {
+            return {
+                type: "lostfocus",
+                message: e.toString(),
+            };
+        }
+        if (!url.toString().startsWith(grafanaPrefix)) {
+            return {
+                type: "lostfocus",
+                message: `Invalid host. Should start with ${grafanaPrefix}`,
+            };
+        }
+        let isPanelFound = false;
+        let panelID;
+        for (const pair of url.searchParams.entries()) {
+            if (pair[0] === "panelId") {
+                isPanelFound = true;
+                panelID = pair[1];
+                break;
+            }
+        }
+        if (!isPanelFound) {
+            return {
+                type: "lostfocus",
+                message: "Param panelId is not found in url",
+            };
+        }
+
+        if (!(Number(panelID) > 0)) {
+            return {
+                type: "lostfocus",
+                message: "Bad panelId value. Should be positive number",
+            };
+        }
     }
 
     validateRequiredNumber(value: ?number): ?ValidationInfo {
@@ -121,8 +175,19 @@ export default class TriggerEditForm extends React.Component<Props, State> {
 
     render(): React.Node {
         const { advancedMode } = this.state;
-        const { data, onChange, tags: allTags } = this.props;
-        const { name, desc, targets, tags, expression, ttl, ttl_state: ttlState, is_pull_type: isPullType, sched } = data;
+        const { data, onChange, tags: allTags, grafanaPrefix } = this.props;
+        const {
+            name,
+            targets,
+            tags,
+            expression,
+            ttl,
+            ttl_state: ttlState,
+            is_pull_type: isPullType,
+            dashboard,
+            sched,
+            desc,
+        } = data;
         if (sched == null) {
             throw new Error("InvalidProgramState");
         }
@@ -138,6 +203,19 @@ export default class TriggerEditForm extends React.Component<Props, State> {
                 <FormRow label="Description" useTopAlignForLabel>
                     <Textarea width="100%" value={desc || ""} onChange={(e, value) => onChange({ desc: value })} />
                 </FormRow>
+                {grafanaPrefix && (
+                    <FormRow label="Dashboard" useTopAlignForLabel>
+                        <ValidationWrapperV1
+                            validationInfo={this.validateDashboard(dashboard, grafanaPrefix)}
+                            renderMessage={tooltip("right middle")}>
+                            <Textarea
+                                width="100%"
+                                value={grafanaPrefix ? dashboard : ""}
+                                onChange={(e, value) => onChange({ dashboard: value || "" })}
+                            />
+                        </ValidationWrapperV1>
+                    </FormRow>
+                )}
                 <FormRow label="Target" useTopAlignForLabel>
                     {targets.map((x, i) => (
                         <div key={i} className={cn("target")}>
