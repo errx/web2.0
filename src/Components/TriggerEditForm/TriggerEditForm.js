@@ -208,7 +208,7 @@ export default class TriggerEditForm extends React.Component<Props, State> {
                         <ValidationWrapperV1
                             validationInfo={this.validateDashboard(dashboard, grafanaPrefix)}
                             renderMessage={tooltip("right middle")}>
-                            <Textarea
+                            <Input
                                 width="100%"
                                 value={grafanaPrefix ? dashboard : ""}
                                 onChange={(e, value) => onChange({ dashboard: value || "" })}
