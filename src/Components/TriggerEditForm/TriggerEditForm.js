@@ -143,6 +143,18 @@ export default class TriggerEditForm extends React.Component<Props, State> {
         });
     }
 
+    renderDashboardHelp = (): React.Node => {
+        return (
+            <div className={cn("expression-help")}>
+                <div className={cn("main-description")}>
+                    Insert panel link here.<br /> Example: http://host/grafana/dashboard/db/dashboard?panelId=64
+                    <br />
+                    <b>panelId</b> is required
+                </div>
+            </div>
+        );
+    };
+
     renderExpressionHelp = (): React.Node => {
         return (
             <div className={cn("expression-help")}>
@@ -205,15 +217,24 @@ export default class TriggerEditForm extends React.Component<Props, State> {
                 </FormRow>
                 {grafanaPrefix && (
                     <FormRow label="Dashboard" useTopAlignForLabel>
-                        <ValidationWrapperV1
-                            validationInfo={this.validateDashboard(dashboard, grafanaPrefix)}
-                            renderMessage={tooltip("right middle")}>
-                            <Input
-                                width="100%"
-                                value={grafanaPrefix ? dashboard : ""}
-                                onChange={(e, value) => onChange({ dashboard: value || "" })}
-                            />
-                        </ValidationWrapperV1>
+                        <RowStack baseline block gap={2}>
+                            <Fill>
+                                <ValidationWrapperV1
+                                    validationInfo={this.validateDashboard(dashboard, grafanaPrefix)}
+                                    renderMessage={tooltip("right middle")}>
+                                    <Input
+                                        width="100%"
+                                        value={grafanaPrefix ? dashboard : ""}
+                                        onChange={(e, value) => onChange({ dashboard: value || "" })}
+                                    />
+                                </ValidationWrapperV1>
+                            </Fill>
+                            <Fit>
+                                <Tooltip pos="top right" render={this.renderDashboardHelp} trigger="click">
+                                    <Link icon="HelpDot" />
+                                </Tooltip>
+                            </Fit>
+                        </RowStack>
                     </FormRow>
                 )}
                 <FormRow label="Target" useTopAlignForLabel>
