@@ -23,7 +23,7 @@ type State = {
     contactIdToAdd: ?string,
 };
 
-export default class TagDropdownSelect extends React.Component<Props, State> {
+export default class ContactSelect extends React.Component<Props, State> {
     props: Props;
     state: State = {
         contactIdToAdd: null,
