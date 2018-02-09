@@ -10,6 +10,7 @@ import ContactSelect from "../ContactSelect/ContactSelect";
 import TagDropdownSelect from "../TagDropdownSelect/TagDropdownSelect";
 import ScheduleEdit from "../ScheduleEdit/ScheduleEdit";
 import cn from "./SubscriptionEditor.less";
+import EscalationEditor from "../EscalationEdit/EscalationEdit";
 
 export type SubscriptionInfo = {
     sched: Schedule,
@@ -17,6 +18,7 @@ export type SubscriptionInfo = {
     throttling: boolean,
     contacts: Array<string>,
     enabled: boolean,
+    escalation: Escalation,
 };
 
 type Props = {
@@ -105,6 +107,18 @@ export default class SubscriptionEditor extends React.Component<Props> {
                         </ValidationWrapperV1>
                     </div>
                 </div>
+
+                <div className={cn("row")}>
+                    <div className={cn("caption")}>EscalationsXX</div>
+                    <div className={cn("value", "with-input")}>
+                        <EscalationEditor
+                            escalation={subscription.escalation}
+                            onChange={escalation => onChange({ escalation: escalation })}
+                            availableContacts={contacts}
+                        />
+                    </div>
+                </div>
+
                 <div className={cn("row")}>
                     <div className={cn("caption")}>Delivery schedule:</div>
                     <div className={cn("value")}>

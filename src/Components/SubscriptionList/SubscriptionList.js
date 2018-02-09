@@ -4,6 +4,7 @@ import Button from "retail-ui/components/Button";
 import type { Subscription } from "../../Domain/Subscription";
 import type { Contact } from "../../Domain/Contact";
 import { createSchedule, WholeWeek } from "../../Domain/Schedule";
+import { createEscalation } from "../../Domain/Escalation";
 import TagGroup from "../TagGroup/TagGroup";
 import ContactInfo from "../ContactInfo/ContactInfo";
 import SubscriptionEditModal from "../SubscriptionEditModal/SubscriptionEditModal";
@@ -58,6 +59,7 @@ export default class SubscriptionList extends React.Component<Props, State> {
                 throttling: false,
                 contacts: [],
                 enabled: true,
+                escalation: createEscalation(10),
             },
         });
     };
