@@ -10,6 +10,7 @@ import cn from "./ContactSelect.less";
 type Props = {
     contactIds: Array<string>,
     onChange: (Array<string>) => void,
+    usedContactIds: Array<string>,
     availableContacts: Array<Contact>,
     error?: boolean,
     warning?: boolean,
@@ -30,9 +31,9 @@ export default class ContactSelect extends React.Component<Props, State> {
     };
 
     getContactsForComboBox = async (query: string): Promise<Array<{ value: string, label: string }>> => {
-        const { contactIds, availableContacts } = this.props;
+        const { usedContactIds, availableContacts } = this.props;
         return availableContacts
-            .filter(x => !contactIds.includes(x.id))
+            .filter(x => !usedContactIds.includes(x.id))
             .filter(x => this.isContactMatch(x, query))
             .slice(0, 10)
             .map(x => ({

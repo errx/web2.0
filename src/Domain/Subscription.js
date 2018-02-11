@@ -1,6 +1,7 @@
 // @flow
 
 import type { Schedule } from "./Schedule";
+import type { EscalationInfo } from "../Components/EscalationEdit/EscalationEdit";
 
 export type Subscription = {
     sched: Schedule,
@@ -10,4 +11,5 @@ export type Subscription = {
     enabled: boolean,
     user: string,
     id: string,
+    escalations: Array<EscalationInfo>,
 };

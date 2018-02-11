@@ -14,6 +14,7 @@ export type EscalationInfo = {
 type Props = {
     escalation: EscalationInfo,
     onChange: ($Shape<EscalationInfo>) => void,
+    usedContactIds: Array<string>,
     availableContacts: Array<Contact>,
 };
 
@@ -32,7 +33,7 @@ export default class EscalationEditor extends React.Component<Props> {
     }
 
     render(): React.Node {
-        const { escalation, availableContacts, onChange } = this.props;
+        const { escalation, usedContactIds, availableContacts, onChange } = this.props;
 
         return (
             <div className={cn("form")}>
@@ -53,6 +54,7 @@ export default class EscalationEditor extends React.Component<Props> {
                             <ContactSelect
                                 contactIds={escalation.contacts}
                                 onChange={contacts => onChange({ ...escalation, contacts: contacts })}
+                                usedContactIds={usedContactIds}
                                 availableContacts={availableContacts}
                             />
                         </ValidationWrapperV1>

@@ -66,8 +66,20 @@ export default class SubscriptionEditor extends React.Component<Props> {
         return null;
     }
 
+    getUsedContactIds(): Array<string> {
+        const { subscription } = this.props;
+        let usedContactIds = subscription.contacts.slice();
+        const esc = subscription.escalations || [];
+        // subscription.escalations.map(e => {
+        esc.map(e => {
+            usedContactIds = usedContactIds.concat(e.contacts);
+        });
+        return usedContactIds;
+    }
+
     render(): React.Node {
         const { subscription, contacts, onChange, tags } = this.props;
+        const usedContactIds = this.getUsedContactIds();
         return (
             <div className={cn("form")}>
                 <div className={cn("row")}>
@@ -78,6 +90,7 @@ export default class SubscriptionEditor extends React.Component<Props> {
                             validationInfo={this.validateContacts()}>
                             <ContactSelect
                                 contactIds={subscription.contacts}
+                                usedContactIds={usedContactIds}
                                 onChange={contactIds => onChange({ contacts: contactIds })}
                                 availableContacts={contacts}
                             />
@@ -140,6 +153,7 @@ export default class SubscriptionEditor extends React.Component<Props> {
                     <div className={cn("value", "with-input")}>
                         <EscalationList
                             escalations={subscription.escalations}
+                            usedContactIds={usedContactIds}
                             onChange={escalations => onChange({ escalations: escalations })}
                             availableContacts={contacts}
                         />
