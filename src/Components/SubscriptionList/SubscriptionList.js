@@ -59,7 +59,7 @@ export default class SubscriptionList extends React.Component<Props, State> {
                 throttling: false,
                 contacts: [],
                 enabled: true,
-                escalation: createEscalation(10),
+                escalations: [],
             },
         });
     };

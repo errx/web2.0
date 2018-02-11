@@ -33,23 +33,26 @@ export default class EscalationEditor extends React.Component<Props> {
 
     render(): React.Node {
         const { escalation, availableContacts, onChange } = this.props;
+
         return (
             <div className={cn("form")}>
                 <div className={cn("row")}>
                     <Input
-                        value="66"
-                        width={60}
-                        mask="66"
+                        value={escalation.offset}
+                        width="60px"
+                        mask="999"
+                        maskChar=" "
                         onChange={(e, value) => onChange({ ...escalation, offset: value })}
                     />
-                    <div className={cn("caption")}>Target delivery channels:</div>
+                </div>
+                <div className={cn("row")}>
                     <div className={cn("value", "with-input")}>
                         <ValidationWrapperV1
                             renderMessage={tooltip("right middle")}
                             validationInfo={this.validateContacts()}>
                             <ContactSelect
                                 contactIds={escalation.contacts}
-                                onChange={contactIds => onChange({ contacts: contactIds })}
+                                onChange={contacts => onChange({ ...escalation, contacts: contacts })}
                                 availableContacts={availableContacts}
                             />
                         </ValidationWrapperV1>

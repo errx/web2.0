@@ -10,7 +10,8 @@ import ContactSelect from "../ContactSelect/ContactSelect";
 import TagDropdownSelect from "../TagDropdownSelect/TagDropdownSelect";
 import ScheduleEdit from "../ScheduleEdit/ScheduleEdit";
 import cn from "./SubscriptionEditor.less";
-import EscalationEditor from "../EscalationEdit/EscalationEdit";
+import EscalationList from "../EscalationList/EscalationList";
+import type { EscalationInfo } from "../EscalationEdit/EscalationEdit";
 
 export type SubscriptionInfo = {
     sched: Schedule,
@@ -18,7 +19,7 @@ export type SubscriptionInfo = {
     throttling: boolean,
     contacts: Array<string>,
     enabled: boolean,
-    escalation: Escalation,
+    escalations: Array<EscalationInfo>,
 };
 
 type Props = {
@@ -99,23 +100,12 @@ export default class SubscriptionEditor extends React.Component<Props> {
                             renderMessage={tooltip("right middle")}
                             validationInfo={this.validateTags()}>
                             <TagDropdownSelect
-                                width="470"
+                                width="470px"
                                 value={subscription.tags}
                                 onChange={tags => onChange({ tags: tags })}
                                 availableTags={tags}
                             />
                         </ValidationWrapperV1>
-                    </div>
-                </div>
-
-                <div className={cn("row")}>
-                    <div className={cn("caption")}>EscalationsXX</div>
-                    <div className={cn("value", "with-input")}>
-                        <EscalationEditor
-                            escalation={subscription.escalation}
-                            onChange={escalation => onChange({ escalation: escalation })}
-                            availableContacts={contacts}
-                        />
                     </div>
                 </div>
 
@@ -143,6 +133,17 @@ export default class SubscriptionEditor extends React.Component<Props> {
                     <Checkbox checked={subscription.enabled} onChange={(e, checked) => onChange({ enabled: checked })}>
                         Enabled
                     </Checkbox>{" "}
+                </div>
+
+                <div className={cn("row")}>
+                    <div className={cn("caption")}>Escalations</div>
+                    <div className={cn("value", "with-input")}>
+                        <EscalationList
+                            escalations={subscription.escalations}
+                            onChange={escalations => onChange({ escalations: escalations })}
+                            availableContacts={contacts}
+                        />
+                    </div>
                 </div>
             </div>
         );

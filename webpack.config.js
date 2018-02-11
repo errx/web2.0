@@ -137,6 +137,7 @@ const config = argv => {
                           },
                       },
         },
+        devtool: "source-map"
     };
     if (PROD) {
         config.plugins.push(new ExtractTextPlugin("app.[hash].css"));
