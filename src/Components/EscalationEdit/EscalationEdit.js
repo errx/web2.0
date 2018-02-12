@@ -5,6 +5,7 @@ import type { Contact } from "../../Domain/Contact";
 import ContactSelect from "../ContactSelect/ContactSelect";
 import cn from "./EscalationEdit.less";
 import Input from "retail-ui/components/Input";
+import FormattedNumberInput from "../FormattedNumberInput/FormattedNumberInput";
 
 export type EscalationInfo = {
     contacts: Array<string>,
@@ -32,6 +33,18 @@ export default class EscalationEditor extends React.Component<Props> {
         return null;
     }
 
+    validateOffset(): ?ValidationInfo {
+        const { escalation: { offset: value } } = this.props;
+
+        if (value == null || value <= 0) {
+            return {
+                message: "Offset can't be empty",
+                type: "submit",
+            };
+        }
+        return null;
+    }
+
     render(): React.Node {
         const { escalation, usedContactIds, availableContacts, onChange } = this.props;
 
@@ -39,13 +52,18 @@ export default class EscalationEditor extends React.Component<Props> {
             <div className={cn("form")}>
                 <div className={cn("group")}>
                     <span>Escalate after</span>
-                    <Input
-                        value={escalation.offset}
-                        width="45px"
-                        mask="999"
-                        maskChar=" "
-                        onChange={(e, value) => onChange({ ...escalation, offset: value })}
-                    />
+
+                    <ValidationWrapperV1 renderMessage={tooltip("right middle")} validationInfo={this.validateOffset()}>
+                        <FormattedNumberInput
+                            value={escalation.offset}
+                            width="45px"
+                            mask="999"
+                            maskChar=" "
+                            onChange={(e, value) => onChange({ ...escalation, offset: value })}
+                            viewFormat="0"
+                            editFormat="0"
+                        />
+                    </ValidationWrapperV1>
                     <span>minutes to:</span>
                 </div>
                 <div className={cn("row")}>

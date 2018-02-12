@@ -65,15 +65,17 @@ export default class EscalationList extends React.Component<Props> {
 }
 
 /* TODO
-#) css
+#) offset validation
 #) remove warnings
 #) escalation info in subscription list
 #) rename classes
+#) cleanup imports etc
 #) tests?
 #) unique offset?
 #) add contacts :OK
 #) share used contacts :OK
 #) check save/load :OK
+#) css :OK
 
 
 #) ack button page
