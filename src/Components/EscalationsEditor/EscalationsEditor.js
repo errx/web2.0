@@ -1,12 +1,12 @@
 // @flow
 import * as React from "react";
-import type { Contact } from "../../Domain/Contact";
-import cn from "./EscalationList.less";
-import type { EscalationInfo } from "../EscalationEdit/EscalationEdit";
-import EscalationEditor from "../EscalationEdit/EscalationEdit";
-import { createEscalation } from "../../Domain/Escalation";
 import Button from "retail-ui/components/Button";
 import Icon from "retail-ui/components/Icon";
+import type { Contact } from "../../Domain/Contact";
+
+import EscalationEditor, { type EscalationInfo } from "../EscalationEditForm/EscalationEditForm";
+
+import cn from "./EscalationsEditor.less";
 
 type Props = {
     escalations: Array<EscalationInfo>,
@@ -18,11 +18,18 @@ type Props = {
 export default class EscalationList extends React.Component<Props> {
     props: Props;
 
+    static createEscalation(offset: number): EscalationInfo {
+        return {
+            offset: offset,
+            contacts: [],
+        };
+    }
+
     handleAddEscalation() {
         const { onChange, escalations } = this.props;
         const maxOffset = escalations.reduce((a, b) => Math.max(a, b.offset), 0);
 
-        onChange([...escalations, createEscalation(maxOffset + 20)]);
+        onChange([...escalations, EscalationList.createEscalation(maxOffset + 20)]);
     }
 
     handleRemoveEscalation(index: number) {
@@ -66,9 +73,9 @@ export default class EscalationList extends React.Component<Props> {
 }
 
 /* TODO
+#) cleanup imports etc
 #) escalation info in subscription list
 #) rename classes
-#) cleanup imports etc
 #) tests?
 #) unique offset?
 #) add contacts :OK

@@ -3,9 +3,8 @@ import * as React from "react";
 import { tooltip, type ValidationInfo, ValidationWrapperV1 } from "react-ui-validations";
 import type { Contact } from "../../Domain/Contact";
 import ContactSelect from "../ContactSelect/ContactSelect";
-import cn from "./EscalationEdit.less";
-import Input from "retail-ui/components/Input";
 import FormattedNumberInput from "../FormattedNumberInput/FormattedNumberInput";
+import cn from "./EscalationEditForm.less";
 
 export type EscalationInfo = {
     contacts: Array<string>,
@@ -36,7 +35,7 @@ export default class EscalationEditor extends React.Component<Props> {
     validateOffset(): ?ValidationInfo {
         const { escalation: { offset: value } } = this.props;
 
-        if (value == null || value <= 0) {
+        if (value == null) {
             return {
                 message: "Offset can't be empty",
                 type: "submit",

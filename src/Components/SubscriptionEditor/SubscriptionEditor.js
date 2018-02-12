@@ -7,11 +7,11 @@ import { ValidationWrapperV1, tooltip, type ValidationInfo } from "react-ui-vali
 import type { Contact } from "../../Domain/Contact";
 import type { Schedule } from "../../Domain/Schedule";
 import ContactSelect from "../ContactSelect/ContactSelect";
+import type { EscalationInfo } from "../EscalationEdit/EscalationEdit";
+import EscalationList from "../EscalationList/EscalationList";
 import TagDropdownSelect from "../TagDropdownSelect/TagDropdownSelect";
 import ScheduleEdit from "../ScheduleEdit/ScheduleEdit";
 import cn from "./SubscriptionEditor.less";
-import EscalationList from "../EscalationList/EscalationList";
-import type { EscalationInfo } from "../EscalationEdit/EscalationEdit";
 
 export type SubscriptionInfo = {
     sched: Schedule,
@@ -70,6 +70,7 @@ export default class SubscriptionEditor extends React.Component<Props> {
         const { subscription } = this.props;
         let usedContactIds = subscription.contacts.slice();
         const esc = subscription.escalations || [];
+        // TODO check with old triggers
         // subscription.escalations.map(e => {
         esc.map(e => {
             usedContactIds = usedContactIds.concat(e.contacts);
