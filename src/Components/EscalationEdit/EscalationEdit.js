@@ -37,17 +37,20 @@ export default class EscalationEditor extends React.Component<Props> {
 
         return (
             <div className={cn("form")}>
-                <div className={cn("row")}>
+                <div className={cn("group")}>
+                    After
+                    <br />
                     <Input
                         value={escalation.offset}
-                        width="60px"
+                        width="45px"
                         mask="999"
                         maskChar=" "
                         onChange={(e, value) => onChange({ ...escalation, offset: value })}
                     />
-                </div>
-                <div className={cn("row")}>
+                    <br />
+                    minutes
                     <div className={cn("value", "with-input")}>
+                        escalates to
                         <ValidationWrapperV1
                             renderMessage={tooltip("right middle")}
                             validationInfo={this.validateContacts()}>
