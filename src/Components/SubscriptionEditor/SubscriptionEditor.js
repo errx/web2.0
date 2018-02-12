@@ -149,7 +149,7 @@ export default class SubscriptionEditor extends React.Component<Props> {
                 </div>
 
                 <div className={cn("row")}>
-                    <div className={cn("caption")}>Escalations</div>
+                    {subscription.escalations.length > 0 && <div className={cn("caption")}>Escalations</div>}
                     <div className={cn("value", "with-input")}>
                         <EscalationList
                             escalations={subscription.escalations}
