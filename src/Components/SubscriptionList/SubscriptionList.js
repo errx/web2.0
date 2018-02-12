@@ -127,6 +127,8 @@ export default class SubscriptionList extends React.Component<Props, State> {
 
     renderSubscriptionRow(subscription: Subscription): React.Node {
         const { contacts } = this.props;
+        const escalationsLen = subscription.escalations.length;
+        const escalationSuffix = escalationsLen > 1 ? "s" : "";
         return (
             <tr key={subscription.id} className={cn("item")} onClick={() => this.handleEditSubscription(subscription)}>
                 <td className={cn("tags-cell")}>
@@ -137,6 +139,13 @@ export default class SubscriptionList extends React.Component<Props, State> {
                         .map(x => contacts.find(y => y.id === x))
                         .filter(Boolean)
                         .map((x, i) => <ContactInfo key={i} className={cn("contact")} contact={x} />)}
+                </td>
+                <td className={cn("escalations-cell")}>
+                    {escalationsLen > 0 && (
+                        <span>
+                            +{escalationsLen} escalation{escalationSuffix}
+                        </span>
+                    )}
                 </td>
                 <td className={cn("enabled-cell")}>
                     {!subscription.enabled && <span className={cn("disabled-label")}>Disabled</span>}

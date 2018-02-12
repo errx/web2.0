@@ -7,8 +7,8 @@ import { ValidationWrapperV1, tooltip, type ValidationInfo } from "react-ui-vali
 import type { Contact } from "../../Domain/Contact";
 import type { Schedule } from "../../Domain/Schedule";
 import ContactSelect from "../ContactSelect/ContactSelect";
-import type { EscalationInfo } from "../EscalationEdit/EscalationEdit";
-import EscalationList from "../EscalationList/EscalationList";
+import type { EscalationInfo } from "../EscalationForm/EscalationForm";
+import EscalationsEditor from "../EscalationsEditor/EscalationsEditor";
 import TagDropdownSelect from "../TagDropdownSelect/TagDropdownSelect";
 import ScheduleEdit from "../ScheduleEdit/ScheduleEdit";
 import cn from "./SubscriptionEditor.less";
@@ -152,7 +152,7 @@ export default class SubscriptionEditor extends React.Component<Props> {
                 <div className={cn("row")}>
                     {subscription.escalations.length > 0 && <div className={cn("caption")}>Escalations</div>}
                     <div className={cn("value", "with-input")}>
-                        <EscalationList
+                        <EscalationsEditor
                             escalations={subscription.escalations}
                             usedContactIds={usedContactIds}
                             onChange={escalations => onChange({ escalations: escalations })}

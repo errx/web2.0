@@ -4,7 +4,7 @@ import Button from "retail-ui/components/Button";
 import Icon from "retail-ui/components/Icon";
 import type { Contact } from "../../Domain/Contact";
 
-import EscalationEditor, { type EscalationInfo } from "../EscalationEditForm/EscalationEditForm";
+import EscalationForm, { type EscalationInfo } from "../EscalationForm/EscalationForm";
 
 import cn from "./EscalationsEditor.less";
 
@@ -15,7 +15,7 @@ type Props = {
     availableContacts: Array<Contact>,
 };
 
-export default class EscalationList extends React.Component<Props> {
+export default class EscalationsEditor extends React.Component<Props> {
     props: Props;
 
     static createEscalation(offset: number): EscalationInfo {
@@ -29,7 +29,7 @@ export default class EscalationList extends React.Component<Props> {
         const { onChange, escalations } = this.props;
         const maxOffset = escalations.reduce((a, b) => Math.max(a, b.offset), 0);
 
-        onChange([...escalations, EscalationList.createEscalation(maxOffset + 20)]);
+        onChange([...escalations, EscalationsEditor.createEscalation(maxOffset + 20)]);
     }
 
     handleRemoveEscalation(index: number) {
@@ -48,13 +48,12 @@ export default class EscalationList extends React.Component<Props> {
         return (
             <div className={cn("form")}>
                 {escalations.map((escalation, i) => (
-                    <div className={cn("row")}>
-                        <EscalationEditor
+                    <div className={cn("row")} key={i}>
+                        <EscalationForm
                             escalation={escalation}
                             onChange={esc => this.handleUpdateEscalation(i, esc)}
                             usedContactIds={usedContactIds}
                             availableContacts={availableContacts}
-                            key={i}
                         />
                         <div className={cn("fgroup-control")}>
                             <Button onClick={() => this.handleRemoveEscalation(i)}>
@@ -73,11 +72,11 @@ export default class EscalationList extends React.Component<Props> {
 }
 
 /* TODO
-#) cleanup imports etc
-#) escalation info in subscription list
-#) rename classes
 #) tests?
 #) unique offset?
+#) escalation info in subscription list :OK
+#) rename classes :OK
+#) cleanup imports etc :OK
 #) add contacts :OK
 #) share used contacts :OK
 #) check save/load :OK

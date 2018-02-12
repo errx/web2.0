@@ -4,7 +4,7 @@ import { tooltip, type ValidationInfo, ValidationWrapperV1 } from "react-ui-vali
 import type { Contact } from "../../Domain/Contact";
 import ContactSelect from "../ContactSelect/ContactSelect";
 import FormattedNumberInput from "../FormattedNumberInput/FormattedNumberInput";
-import cn from "./EscalationEditForm.less";
+import cn from "./EscalationForm.less";
 
 export type EscalationInfo = {
     contacts: Array<string>,
@@ -18,7 +18,7 @@ type Props = {
     availableContacts: Array<Contact>,
 };
 
-export default class EscalationEditor extends React.Component<Props> {
+export default class EscalationForm extends React.Component<Props> {
     props: Props;
 
     validateContacts(): ?ValidationInfo {
