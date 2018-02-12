@@ -39,9 +39,9 @@ export default class EscalationList extends React.Component<Props> {
         const { escalations, usedContactIds, availableContacts } = this.props;
 
         return (
-            <div className={cn("form, bg")}>
+            <div className={cn("form")}>
                 {escalations.map((escalation, i) => (
-                    <div className={cn("group")}>
+                    <div className={cn("row")}>
                         <EscalationEditor
                             escalation={escalation}
                             onChange={esc => this.handleUpdateEscalation(i, esc)}
