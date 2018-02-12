@@ -47,6 +47,7 @@ export default class EscalationList extends React.Component<Props> {
                             onChange={esc => this.handleUpdateEscalation(i, esc)}
                             usedContactIds={usedContactIds}
                             availableContacts={availableContacts}
+                            key={i}
                         />
                         <div className={cn("fgroup-control")}>
                             <Button onClick={() => this.handleRemoveEscalation(i)}>
@@ -65,8 +66,6 @@ export default class EscalationList extends React.Component<Props> {
 }
 
 /* TODO
-#) offset validation
-#) remove warnings
 #) escalation info in subscription list
 #) rename classes
 #) cleanup imports etc
@@ -76,6 +75,8 @@ export default class EscalationList extends React.Component<Props> {
 #) share used contacts :OK
 #) check save/load :OK
 #) css :OK
+#) offset validation :OK
+#) remove warnings :OK
 
 
 #) ack button page
