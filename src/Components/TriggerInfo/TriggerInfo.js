@@ -53,7 +53,6 @@ export default function TriggerInfo({ data, triggerState, supportEmail, onThrott
         tags,
         throttling,
         is_pull_type: isPullType,
-        dashboard,
     } = data;
     const { state, msg: exceptionMessage } = triggerState;
 
@@ -112,7 +111,7 @@ export default function TriggerInfo({ data, triggerState, supportEmail, onThrott
                     <TagGroup tags={tags} />
                 </dd>
                 <dt>Pull</dt>
-                <dd>{isPullType ? (<span>YES</span>) : (<span>NO</span>)}</dd>
+                <dd>{isPullType ? <span>YES</span> : <span>NO</span>}</dd>
                 {state === "EXCEPTION" && <dt />}
                 {state === "EXCEPTION" && (
                     <dd className={cn("exception-explanation")}>

@@ -8,7 +8,7 @@ import cn from "./EscalationForm.less";
 
 export type EscalationInfo = {
     contacts: Array<string>,
-    offset: number,
+    offset_in_minutes: number,
 };
 
 type Props = {
@@ -33,7 +33,7 @@ export default class EscalationForm extends React.Component<Props> {
     }
 
     validateOffset(): ?ValidationInfo {
-        const { escalation: { offset: value } } = this.props;
+        const { escalation: { offset_in_minutes: value } } = this.props;
 
         if (value == null) {
             return {
@@ -54,11 +54,11 @@ export default class EscalationForm extends React.Component<Props> {
 
                     <ValidationWrapperV1 renderMessage={tooltip("right middle")} validationInfo={this.validateOffset()}>
                         <FormattedNumberInput
-                            value={escalation.offset}
+                            value={escalation.offset_in_minutes}
                             width="45px"
                             mask="999"
                             maskChar=" "
-                            onChange={(e, value) => onChange({ ...escalation, offset: value })}
+                            onChange={(e, value) => onChange({ ...escalation, offset_in_minutes: value })}
                             viewFormat="0"
                             editFormat="0"
                         />
