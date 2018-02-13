@@ -38,7 +38,13 @@ function ScheduleView(props: { data: Schedule }): React.Node {
     );
 }
 
-export default function TriggerInfo({ data, triggerState, supportEmail, onThrottlingRemove }: Props): React.Node {
+export default function TriggerInfo({
+    data,
+    triggerState,
+    supportEmail,
+    onThrottlingRemove,
+    onAckEscalations,
+}: Props): React.Node {
     const {
         id,
         name,
@@ -53,6 +59,7 @@ export default function TriggerInfo({ data, triggerState, supportEmail, onThrott
         tags,
         throttling,
         is_pull_type: isPullType,
+        has_escalations: hasEscalations,
     } = data;
     const { state, msg: exceptionMessage } = triggerState;
 
@@ -72,6 +79,7 @@ export default function TriggerInfo({ data, triggerState, supportEmail, onThrott
                     <RouterLink to={getPageLink("triggerEdit", id)} icon="Edit">
                         Edit
                     </RouterLink>
+
                     <a
                         href="#download"
                         onClick={(event: Event) => {
@@ -112,6 +120,7 @@ export default function TriggerInfo({ data, triggerState, supportEmail, onThrott
                 </dd>
                 <dt>Pull</dt>
                 <dd>{isPullType ? <span>YES</span> : <span>NO</span>}</dd>
+
                 {state === "EXCEPTION" && <dt />}
                 {state === "EXCEPTION" && (
                     <dd className={cn("exception-explanation")}>
@@ -134,6 +143,13 @@ export default function TriggerInfo({ data, triggerState, supportEmail, onThrott
                         </div>
                     </dd>
                 )}
+                <dd>
+                    {hasEscalations && (
+                        <Button use="success" onClick={() => onAckEscalations(id)}>
+                            Acknowledge alert!
+                        </Button>
+                    )}
+                </dd>
             </dl>
         </section>
     );
