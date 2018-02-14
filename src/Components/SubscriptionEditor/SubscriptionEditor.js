@@ -69,10 +69,9 @@ export default class SubscriptionEditor extends React.Component<Props> {
     getUsedContactIds(): Array<string> {
         const { subscription } = this.props;
         let usedContactIds = subscription.contacts.slice();
-        const esc = subscription.escalations || [];
         // TODO check with old triggers
         // subscription.escalations.map(e => {
-        esc.map(e => {
+        (subscription.escalations || []).map(e => {
             usedContactIds = usedContactIds.concat(e.contacts);
         });
         return usedContactIds;
@@ -80,6 +79,7 @@ export default class SubscriptionEditor extends React.Component<Props> {
 
     render(): React.Node {
         const { subscription, contacts, onChange, tags } = this.props;
+        const escalations = subscription.escalations || [];
         const usedContactIds = this.getUsedContactIds();
         return (
             <div className={cn("form")}>
@@ -150,10 +150,10 @@ export default class SubscriptionEditor extends React.Component<Props> {
                 </div>
 
                 <div className={cn("row")}>
-                    {subscription.escalations.length > 0 && <div className={cn("caption")}>Escalations</div>}
+                    {escalations.length > 0 && <div className={cn("caption")}>Escalations</div>}
                     <div className={cn("value", "with-input")}>
                         <EscalationsEditor
-                            escalations={subscription.escalations}
+                            escalations={escalations}
                             usedContactIds={usedContactIds}
                             onChange={escalations => onChange({ escalations: escalations })}
                             availableContacts={contacts}
