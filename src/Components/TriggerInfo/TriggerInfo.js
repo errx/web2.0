@@ -152,7 +152,7 @@ export default function TriggerInfo({
                                 Acknowledge alert!
                             </Button>
                         )}
-                    {isAcked && <div>Trigger is currently acknowleged state</div>}
+                    {isAcked && <div>Trigger is currently in acknowledged state</div>}
                 </dd>
             </dl>
         </section>
