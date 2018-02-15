@@ -59,7 +59,7 @@ export default function TriggerInfo({
         tags,
         throttling,
         is_pull_type: isPullType,
-        has_escalations: hasEscalations,
+        can_escalate: canEscalate,
     } = data;
     const { state, msg: exceptionMessage } = triggerState;
 
@@ -144,7 +144,7 @@ export default function TriggerInfo({
                     </dd>
                 )}
                 <dd>
-                    {hasEscalations && (
+                    {canEscalate && (
                         <Button use="success" onClick={() => onAckEscalations(id)}>
                             Acknowledge alert!
                         </Button>
