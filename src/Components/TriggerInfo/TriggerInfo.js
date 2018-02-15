@@ -17,6 +17,7 @@ type Props = {|
     triggerState: TriggerState,
     supportEmail: string,
     onThrottlingRemove: (triggerId: string) => void,
+    onAckEscalations: (triggerId: string) => void,
 |};
 
 function ScheduleView(props: { data: Schedule }): React.Node {
@@ -59,7 +60,8 @@ export default function TriggerInfo({
         tags,
         throttling,
         is_pull_type: isPullType,
-        can_escalate: canEscalate,
+        has_escalations: hasEscalations,
+        is_acked: isAcked,
     } = data;
     const { state, msg: exceptionMessage } = triggerState;
 
@@ -144,11 +146,13 @@ export default function TriggerInfo({
                     </dd>
                 )}
                 <dd>
-                    {canEscalate && (
-                        <Button use="success" onClick={() => onAckEscalations(id)}>
-                            Acknowledge alert!
-                        </Button>
-                    )}
+                    {hasEscalations &&
+                        !isAcked && (
+                            <Button use="success" onClick={() => onAckEscalations(id)}>
+                                Acknowledge alert!
+                            </Button>
+                        )}
+                    {isAcked && <div>Trigger is currently acknowleged state</div>}
                 </dd>
             </dl>
         </section>
