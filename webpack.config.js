@@ -130,7 +130,7 @@ const config = argv => {
                       }
                     : {
                           "/api": {
-                              target: "http://x:8081",
+                              target: "http://localhost:8081",
                               secure: false,
                               changeOrigin: true,
                           },
