@@ -70,22 +70,3 @@ export default class EscalationsEditor extends React.Component<Props> {
         );
     }
 }
-
-/* TODO
-#) tests?
-#) unique offset?
-#) escalation info in subscription list :OK
-#) rename classes :OK
-#) cleanup imports etc :OK
-#) add contacts :OK
-#) share used contacts :OK
-#) check save/load :OK
-#) css :OK
-#) offset validation :OK
-#) remove warnings :OK
-
-
-#) ack button page
-#) ack button api
-
- */
