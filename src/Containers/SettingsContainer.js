@@ -161,6 +161,7 @@ class SettingsContainer extends React.Component<Props, State> {
                 throttling: subscription.throttling,
                 contacts: subscription.contacts,
                 enabled: subscription.enabled,
+                escalations: subscription.escalations,
                 user: settings.login,
             });
             this.setState({

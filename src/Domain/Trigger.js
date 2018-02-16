@@ -30,6 +30,7 @@ export type Trigger = {
     timestamp?: number,
     is_pull_type?: boolean,
     dashboard?: string,
+    can_escalate?: boolean,
 };
 
 export type TriggerList = {|

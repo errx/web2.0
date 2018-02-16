@@ -99,6 +99,12 @@ class TriggerContainer extends React.Component<Props, State> {
         this.getData(this.props);
     }
 
+    async ackEscalations(triggerId: string): Promise<void> {
+        this.setState({ loading: true });
+        await this.props.moiraApi.ackEscalations(triggerId);
+        this.getData(this.props);
+    }
+
     async setMaintenance(triggerId: string, maintenance: Maintenance, metric: string): Promise<void> {
         this.setState({ loading: true });
         const maintenanceTime = getMaintenanceTime(maintenance);
@@ -245,6 +251,9 @@ class TriggerContainer extends React.Component<Props, State> {
                                 supportEmail={config.supportEmail}
                                 onThrottlingRemove={triggerId => {
                                     this.disableThrottling(triggerId);
+                                }}
+                                onAckEscalations={triggerId => {
+                                    this.ackEscalations(triggerId);
                                 }}
                             />
                         </LayoutPlate>

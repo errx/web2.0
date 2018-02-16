@@ -1,13 +1,15 @@
 // @flow
 import * as React from "react";
-import { union, difference, intersection } from "lodash";
+import { difference, intersection, union } from "lodash";
 import Checkbox from "retail-ui/components/Checkbox";
 import Link from "retail-ui/components/Link";
 import Tooltip from "retail-ui/components/Tooltip";
-import { ValidationWrapperV1, tooltip, type ValidationInfo } from "react-ui-validations";
+import { tooltip, type ValidationInfo, ValidationWrapperV1 } from "react-ui-validations";
 import type { Contact } from "../../Domain/Contact";
 import type { Schedule } from "../../Domain/Schedule";
 import ContactSelect from "../ContactSelect/ContactSelect";
+import type { EscalationInfo } from "../EscalationForm/EscalationForm";
+import EscalationsEditor from "../EscalationsEditor/EscalationsEditor";
 import TagDropdownSelect from "../TagDropdownSelect/TagDropdownSelect";
 import ScheduleEdit from "../ScheduleEdit/ScheduleEdit";
 import CodeRef from "../CodeRef/CodeRef";
@@ -21,6 +23,7 @@ export type SubscriptionInfo = {
     enabled: boolean,
     sendNotificationsOnTriggerDegradedOnly: ?boolean,
     doNotSendWarnNotifications: ?boolean,
+    escalations: Array<EscalationInfo>,
 };
 
 type Props = {
@@ -155,8 +158,21 @@ export default class SubscriptionEditor extends React.Component<Props> {
         }
     }
 
+    getUsedContactIds(): Array<string> {
+        const { subscription } = this.props;
+        let usedContactIds = subscription.contacts.slice();
+        // TODO check with old triggers
+        // subscription.escalations.map(e => {
+        (subscription.escalations || []).map(e => {
+            usedContactIds = usedContactIds.concat(e.contacts);
+        });
+        return usedContactIds;
+    }
+
     render(): React.Node {
         const { subscription, contacts, onChange, tags } = this.props;
+        const escalations = subscription.escalations || [];
+        const usedContactIds = this.getUsedContactIds();
         return (
             <div className={cn("form")}>
                 <div className={cn("row")}>
@@ -167,6 +183,7 @@ export default class SubscriptionEditor extends React.Component<Props> {
                             validationInfo={this.validateContacts()}>
                             <ContactSelect
                                 contactIds={subscription.contacts}
+                                usedContactIds={usedContactIds}
                                 onChange={contactIds => onChange({ contacts: contactIds })}
                                 availableContacts={contacts}
                             />
@@ -254,6 +271,18 @@ export default class SubscriptionEditor extends React.Component<Props> {
                     <Checkbox checked={subscription.enabled} onChange={(e, checked) => onChange({ enabled: checked })}>
                         Enabled
                     </Checkbox>{" "}
+                </div>
+
+                <div className={cn("row")}>
+                    {escalations.length > 0 && <div className={cn("caption")}>Escalations</div>}
+                    <div className={cn("value", "with-input")}>
+                        <EscalationsEditor
+                            escalations={escalations}
+                            usedContactIds={usedContactIds}
+                            onChange={escalations => onChange({ escalations: escalations })}
+                            availableContacts={contacts}
+                        />
+                    </div>
                 </div>
             </div>
         );
