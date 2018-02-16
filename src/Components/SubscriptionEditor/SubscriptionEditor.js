@@ -189,7 +189,7 @@ export default class SubscriptionEditor extends React.Component<Props> {
                             renderMessage={tooltip("right middle")}
                             validationInfo={this.validateTags()}>
                             <TagDropdownSelect
-                                width="470"
+                                width="470px"
                                 value={subscription.tags.filter(x => !specialTags.includes(x))}
                                 onChange={nextTags =>
                                     onChange({
@@ -201,6 +201,7 @@ export default class SubscriptionEditor extends React.Component<Props> {
                         </ValidationWrapperV1>
                     </div>
                 </div>
+
                 <div className={cn("row")}>
                     <div className={cn("caption")}>Delivery schedule:</div>
                     <div className={cn("value")}>

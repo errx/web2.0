@@ -93,7 +93,7 @@ class TriggerContainer extends React.Component<Props, State> {
         }
     }
 
-    async disableTrhrottling(triggerId: string): Promise<void> {
+    async disableThrottling(triggerId: string): Promise<void> {
         this.setState({ loading: true });
         await this.props.moiraApi.delThrottling(triggerId);
         this.getData(this.props);
@@ -244,7 +244,7 @@ class TriggerContainer extends React.Component<Props, State> {
                                 triggerState={triggerState}
                                 supportEmail={config.supportEmail}
                                 onThrottlingRemove={triggerId => {
-                                    this.disableTrhrottling(triggerId);
+                                    this.disableThrottling(triggerId);
                                 }}
                             />
                         </LayoutPlate>
