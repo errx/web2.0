@@ -24,7 +24,7 @@ import ToggleWithLabel from "../Toggle/Toggle";
 type Props = {|
     data: $Shape<Trigger>,
     tags: Array<string>,
-    grafanaPrefix: ?string,
+    grafanaPrefix?: ?string,
     onChange: ($Shape<Trigger>) => void,
 |};
 
@@ -220,11 +220,11 @@ export default class TriggerEditForm extends React.Component<Props, State> {
                         <RowStack baseline block gap={2}>
                             <Fill>
                                 <ValidationWrapperV1
-                                    validationInfo={this.validateDashboard(dashboard, grafanaPrefix)}
+                                    validationInfo={this.validateDashboard(dashboard || "", grafanaPrefix)}
                                     renderMessage={tooltip("right middle")}>
                                     <Input
                                         width="100%"
-                                        value={grafanaPrefix ? dashboard : ""}
+                                        value={grafanaPrefix ? dashboard || "" : ""}
                                         onChange={(e, value) => onChange({ dashboard: value || "" })}
                                     />
                                 </ValidationWrapperV1>

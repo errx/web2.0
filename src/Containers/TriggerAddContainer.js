@@ -111,7 +111,7 @@ class TriggerEditContainer extends React.Component<Props, State> {
                                         <TriggerEditForm
                                             data={trigger}
                                             tags={tags || []}
-                                            grafanaPrefix={grafanaPrefix}
+                                            grafanaPrefix={grafanaPrefix || ""}
                                             onChange={update => this.handleChange(update)}
                                         />
                                     </ValidationContainer>

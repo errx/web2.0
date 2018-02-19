@@ -1,7 +1,7 @@
 // @flow
 
 import type { Schedule } from "./Schedule";
-import type { EscalationInfo } from "../Components/EscalationEdit/EscalationEdit";
+import type { EscalationInfo } from "../Components/EscalationForm/EscalationForm";
 
 export type Subscription = {
     sched: Schedule,

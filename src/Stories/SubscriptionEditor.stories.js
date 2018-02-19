@@ -31,6 +31,7 @@ storiesOf("SubscriptionEditor", module)
                 id: "1",
                 sendNotificationsOnTriggerDegradedOnly: undefined,
                 doNotSendWarnNotifications: undefined,
+                escalations: [],
             }}
         />
     ))
@@ -56,6 +57,7 @@ storiesOf("SubscriptionEditor", module)
                 id: "1",
                 sendNotificationsOnTriggerDegradedOnly: undefined,
                 doNotSendWarnNotifications: undefined,
+                escalations: [],
             }}
         />
     ));

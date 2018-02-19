@@ -10,7 +10,7 @@ import cn from "./EscalationsEditor.less";
 
 type Props = {
     escalations: Array<EscalationInfo>,
-    onChange: ($Shape<EscalationInfo>) => void,
+    onChange: (Array<EscalationInfo>) => void,
     usedContactIds: Array<string>,
     availableContacts: Array<Contact>,
 };
@@ -20,14 +20,14 @@ export default class EscalationsEditor extends React.Component<Props> {
 
     static createEscalation(offset: number): EscalationInfo {
         return {
-            offset: offset,
+            offset_in_minutes: offset,
             contacts: [],
         };
     }
 
     handleAddEscalation() {
         const { onChange, escalations } = this.props;
-        const maxOffset = escalations.reduce((a, b) => Math.max(a, b.offset), 0);
+        const maxOffset = escalations.reduce((a, b) => Math.max(a, b.offset_in_minutes), 0);
 
         onChange([...escalations, EscalationsEditor.createEscalation(maxOffset + 20)]);
     }

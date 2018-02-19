@@ -114,6 +114,7 @@ stories.forEach(({ title, data, triggerState }) => {
             triggerState={triggerState}
             data={data}
             onThrottlingRemove={action("onThrottlingRemove")}
+            onAckEscalations={action("ackEscalations")}
         />
     ));
 });

@@ -11,6 +11,7 @@ import type { Contact, ContactList } from "../Domain/Contact";
 import type { ContactCreateInfo } from "../Domain/ContactCreateInfo";
 import type { Subscription } from "../Domain/Subscription";
 import type { Schedule } from "../Domain/Schedule";
+import type { EscalationInfo } from "../Components/EscalationForm/EscalationForm";
 
 export type SubscriptionCreateInfo = {|
     sched: Schedule,
@@ -19,6 +20,7 @@ export type SubscriptionCreateInfo = {|
     contacts: Array<string>,
     enabled: boolean,
     user: string,
+    escalations: Array<EscalationInfo>,
 |};
 
 export type TagList = {|

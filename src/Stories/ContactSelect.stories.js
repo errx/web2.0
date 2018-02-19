@@ -9,6 +9,7 @@ storiesOf("ContactSelect", module)
     .add("Empty", () => (
         <ContactSelect
             contactIds={[]}
+            usedContactIds={[]}
             onChange={action("onChange")}
             availableContacts={[
                 {
@@ -29,6 +30,7 @@ storiesOf("ContactSelect", module)
     .add("Default", () => (
         <ContactSelect
             contactIds={["1"]}
+            usedContactIds={[]}
             onChange={action("onChange")}
             availableContacts={[
                 {

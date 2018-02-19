@@ -55,6 +55,7 @@ storiesOf("SubscriptionList", module)
                     id: "1",
                     sendNotificationsOnTriggerDegradedOnly: undefined,
                     doNotSendWarnNotifications: undefined,
+                    escalations: [],
                 },
                 {
                     sched: createSchedule(WholeWeek),
@@ -66,6 +67,7 @@ storiesOf("SubscriptionList", module)
                     id: "2",
                     sendNotificationsOnTriggerDegradedOnly: undefined,
                     doNotSendWarnNotifications: undefined,
+                    escalations: [],
                 },
             ]}
         />
@@ -86,6 +88,7 @@ storiesOf("SubscriptionList", module)
                     id: "1",
                     sendNotificationsOnTriggerDegradedOnly: undefined,
                     doNotSendWarnNotifications: undefined,
+                    escalations: [],
                 },
                 {
                     sched: createSchedule(WholeWeek),
@@ -97,6 +100,7 @@ storiesOf("SubscriptionList", module)
                     id: "2",
                     sendNotificationsOnTriggerDegradedOnly: undefined,
                     doNotSendWarnNotifications: undefined,
+                    escalations: [],
                 },
             ]}
         />
@@ -117,6 +121,7 @@ storiesOf("SubscriptionList", module)
                     id: "1",
                     sendNotificationsOnTriggerDegradedOnly: undefined,
                     doNotSendWarnNotifications: undefined,
+                    escalations: [],
                 },
                 {
                     sched: createSchedule(WholeWeek),
@@ -128,6 +133,7 @@ storiesOf("SubscriptionList", module)
                     id: "2",
                     sendNotificationsOnTriggerDegradedOnly: undefined,
                     doNotSendWarnNotifications: undefined,
+                    escalations: [],
                 },
             ]}
         />
@@ -148,6 +154,7 @@ storiesOf("SubscriptionList", module)
                     id: "2",
                     sendNotificationsOnTriggerDegradedOnly: undefined,
                     doNotSendWarnNotifications: undefined,
+                    escalations: [],
                 },
                 {
                     sched: createSchedule(WholeWeek),
@@ -168,6 +175,7 @@ storiesOf("SubscriptionList", module)
                     id: "1",
                     sendNotificationsOnTriggerDegradedOnly: undefined,
                     doNotSendWarnNotifications: undefined,
+                    escalations: [],
                 },
                 {
                     sched: createSchedule(WholeWeek),
@@ -179,6 +187,7 @@ storiesOf("SubscriptionList", module)
                     id: "2",
                     sendNotificationsOnTriggerDegradedOnly: undefined,
                     doNotSendWarnNotifications: undefined,
+                    escalations: [],
                 },
             ]}
         />

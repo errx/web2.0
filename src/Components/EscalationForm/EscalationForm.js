@@ -51,14 +51,13 @@ export default class EscalationForm extends React.Component<Props> {
             <div className={cn("form")}>
                 <div className={cn("group")}>
                     <span>Escalate after</span>
-
                     <ValidationWrapperV1 renderMessage={tooltip("right middle")} validationInfo={this.validateOffset()}>
                         <FormattedNumberInput
                             value={escalation.offset_in_minutes}
                             width="45px"
                             mask="999"
                             maskChar=" "
-                            onChange={(e, value) => onChange({ ...escalation, offset_in_minutes: value })}
+                            onChange={(e, value) => onChange({ ...escalation, offset_in_minutes: value || 0 })}
                             viewFormat="0"
                             editFormat="0"
                         />
