@@ -31,7 +31,6 @@ export type Trigger = {
     is_pull_type?: boolean,
     dashboard?: string,
     has_escalations?: boolean,
-    is_acked?: boolean,
 };
 
 export type TriggerList = {|

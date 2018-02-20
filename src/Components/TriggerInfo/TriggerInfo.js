@@ -61,7 +61,6 @@ export default function TriggerInfo({
         throttling,
         is_pull_type: isPullType,
         has_escalations: hasEscalations,
-        is_acked: isAcked,
     } = data;
     const { state, msg: exceptionMessage } = triggerState;
 
@@ -145,13 +144,11 @@ export default function TriggerInfo({
                     </dd>
                 )}
                 <dd>
-                    {hasEscalations &&
-                        !isAcked && (
-                            <Button use="success" onClick={() => onAckEscalations(id)}>
-                                Acknowledge alert!
-                            </Button>
-                        )}
-                    {isAcked && <div>Trigger is currently in acknowledged state</div>}
+                    {hasEscalations && (
+                        <Button use="success" onClick={() => onAckEscalations(id)}>
+                            Acknowledge alert!
+                        </Button>
+                    )}
                 </dd>
             </dl>
         </section>
