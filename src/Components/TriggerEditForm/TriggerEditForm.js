@@ -185,6 +185,17 @@ export default class TriggerEditForm extends React.Component<Props, State> {
         );
     };
 
+    renderPendingIntervalHelp = (): React.Node => {
+        return (
+            <div className={cn("pending-inteval-help")}>
+                <div className={cn("main-description")}>
+                    The option causes Moira to wait for a certain duration (in seconds) between first encountering a new
+                    trigger state and counting an alert as firing for this element.
+                </div>
+            </div>
+        );
+    };
+
     render(): React.Node {
         const { advancedMode } = this.state;
         const { data, onChange, tags: allTags, grafanaPrefix } = this.props;
@@ -199,6 +210,7 @@ export default class TriggerEditForm extends React.Component<Props, State> {
             dashboard,
             sched,
             desc,
+            pending_interval: pendingInterval,
         } = data;
         if (sched == null) {
             throw new Error("InvalidProgramState");
@@ -338,6 +350,27 @@ export default class TriggerEditForm extends React.Component<Props, State> {
                         />
                     </ValidationWrapperV1>
                 </FormRow>
+                <FormRow singleLineControlGroup>
+                    <span>Pending interval</span>
+
+                    <ValidationWrapperV1
+                        validationInfo={this.validateRequiredNumber(pendingInterval)}
+                        renderMessage={tooltip("right middle")}>
+                        <FormattedNumberInput
+                            width={80}
+                            value={typeof pendingInterval === "number" ? pendingInterval : null}
+                            editFormat={defaultNumberEditFormat}
+                            viewFormat={defaultNumberViewFormat}
+                            onChange={(e, value) => onChange({ pending_interval: value || 0 })}
+                        />
+                    </ValidationWrapperV1>
+                    <Fit>
+                        <Tooltip pos="top right" render={this.renderPendingIntervalHelp} trigger="click">
+                            <Link icon="HelpDot" />
+                        </Tooltip>
+                    </Fit>
+                </FormRow>
+
                 <FormRow label="Watch time">
                     <ScheduleEdit schedule={sched} onChange={schedule => onChange({ sched: schedule })} />
                 </FormRow>

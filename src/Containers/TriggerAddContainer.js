@@ -52,6 +52,7 @@ class TriggerEditContainer extends React.Component<Props, State> {
             },
             is_pull_type: false,
             dashboard: "",
+            pending_interval: 0,
         },
         tags: null,
         grafanaPrefix: null,
