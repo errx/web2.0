@@ -35,5 +35,8 @@ export default function ContactTypeIcon({ type }: Props): React.Element<any> {
     if (type.includes("mail")) {
         return <Icon name={"Mail2"} />;
     }
+    if (type.includes("jira")) {
+        return <Icon name={"Medical"} />;
+    }
     return <Icon name={"Mail2"} />;
 }

@@ -30,16 +30,15 @@ export default class ContactSelect extends React.Component<Props, State> {
         contactIdToAdd: null,
     };
 
-    getContactsForComboBox = async (query: string): Promise<Array<{ value: string, label: string }>> => {
+    getContactsForComboBox = async (query: string): Promise<Array<Contact>> => {
         const { usedContactIds, availableContacts } = this.props;
         return availableContacts
             .filter(x => !usedContactIds.includes(x.id))
             .filter(x => this.isContactMatch(x, query))
-            .slice(0, 10)
-            .map(x => ({
-                value: x.id,
-                label: x.value,
-            }));
+            .slice(0, 10);
+    };
+    renderItem = (contact: Contact) => {
+        return <ContactInfo contact={contact} />;
     };
 
     isContactMatch(contact: Contact, query: string): boolean {
@@ -49,9 +48,9 @@ export default class ContactSelect extends React.Component<Props, State> {
         return contact.value.toLowerCase().includes(query.toLowerCase());
     }
 
-    handleChangeContactToAdd = (e: Event, value: { value: string, label: string }) => {
+    handleChangeContactToAdd = (e: Event, contact: Contact) => {
         const { onChange, contactIds } = this.props;
-        onChange(union(contactIds, [value.value]));
+        onChange(union(contactIds, [contact.id]));
     };
 
     handleRemoveContact = (contact: Contact) => {
@@ -91,6 +90,7 @@ export default class ContactSelect extends React.Component<Props, State> {
                         onBlur={onBlur}
                         onChange={this.handleChangeContactToAdd}
                         getItems={this.getContactsForComboBox}
+                        renderItem={this.renderItem}
                         placeholder="Select delivery channel"
                         renderNotFound={() => "No delivery channels found"}
                     />
