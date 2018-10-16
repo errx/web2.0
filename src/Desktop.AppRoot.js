@@ -9,6 +9,7 @@ import SettingsContainer from "./Containers/SettingsContainer";
 import NotificationListContainer from "./Containers/NotificationListContainer";
 import TagListContainer from "./Containers/TagListContainer";
 import PatternListContainer from "./Containers/PatternListContainer";
+import SilentPatternListContainer from "./Containers/SilentPatternListContainer";
 import { getPagePath } from "./Domain/Global";
 
 export default function DesktopApp(): React.Node {
@@ -22,6 +23,7 @@ export default function DesktopApp(): React.Node {
             <Route exact path={getPagePath("notifications")} component={NotificationListContainer} />
             <Route exact path={getPagePath("tags")} component={TagListContainer} />
             <Route exact path={getPagePath("patterns")} component={PatternListContainer} />
+            <Route exact path={getPagePath("silent_patterns")} component={SilentPatternListContainer} />
             <Route render={() => <p>404. Page not found</p>} />
         </Switch>
     );
