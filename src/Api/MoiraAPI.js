@@ -6,6 +6,7 @@ import type { Trigger, TriggerList, TriggerState } from "../Domain/Trigger";
 import type { Settings } from "../Domain/Settings";
 import type { TagStat } from "../Domain/Tag";
 import type { PatternList } from "../Domain/Pattern";
+import type {SilentPattern, SilentPatternList} from "../Domain/SilentPattern";
 import type { NotificationList } from "../Domain/Notification";
 import type { Contact, ContactList } from "../Domain/Contact";
 import type { ContactCreateInfo } from "../Domain/ContactCreateInfo";
@@ -44,6 +45,9 @@ export interface IMoiraApi {
     testSubscription(subscriptionId: string): Promise<void>;
     deleteContact(contactId: string): Promise<void>;
     getPatternList(): Promise<PatternList>;
+    getSilentPatternList(): Promise<SilentPatternList>;
+    addSilentPattern(silentPattern: SilentPattern): Promise<void>;
+    delSilentPattern(pattern: string): Promise<void>;
     delPattern(pattern: string): Promise<void>;
     getTagList(): Promise<TagList>;
     getTagStats(): Promise<TagStatList>;
@@ -223,6 +227,37 @@ export default class MoiraApi implements IMoiraApi {
 
     async delPattern(pattern: string): Promise<void> {
         const url = this.apiUrl + "/pattern/" + encodeURI(pattern);
+        const response = await fetch(url, {
+            method: "DELETE",
+            credentials: "same-origin",
+        });
+        await this.checkStatus(response);
+    }
+
+    async getSilentPatternList(): Promise<SilentPatternList> {
+        const url = this.apiUrl + "/silent_pattern";
+        const response = await fetch(url, {
+            method: "GET",
+            credentials: "same-origin",
+        });
+        await this.checkStatus(response);
+        return response.json();
+    }
+
+    async addSilentPattern(silentPattern: SilentPattern): Promise<void> {
+        const url = this.apiUrl + "/silent_pattern";
+
+        const response = await fetch(url, {
+            method: "PUT",
+            credentials: "same-origin",
+            body: JSON.stringify(silentPattern),
+        });
+        await this.checkStatus(response);
+        return response.json();
+    }
+
+    async delSilentPattern(pattern: string): Promise<void> {
+        const url = this.apiUrl + "/silent_pattern/" + encodeURI(pattern);
         const response = await fetch(url, {
             method: "DELETE",
             credentials: "same-origin",

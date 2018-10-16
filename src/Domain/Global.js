@@ -8,6 +8,7 @@ export const PagesPaths = {
     notifications: "/notifications",
     tags: "/tags",
     patterns: "/patterns",
+    silent_patterns: "/silent_patterns",
 };
 
 export const PagesLinks = {
