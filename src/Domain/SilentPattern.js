@@ -3,6 +3,8 @@
 export type SilentPattern = {|
     pattern: string,
     until: number;
+    created_at: number;
+    login: string;
 |};
 
 export type SilentPatternList = {|

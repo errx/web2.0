@@ -22,6 +22,9 @@ export default function SilentPatternList(props: Props): React.Node {
             </div>
             <div className={cn("row", "header")}>
                 <div className={cn("name")}>Pattern</div>
+                <div className={cn("login")}>Creator</div>
+                <div className={cn("created_at")}>Created at</div>
+                <div className={cn("control")}/>
                 <div className={cn("control")}/>
             </div>
             {items.map((item, i) => <SilentPatternListItem key={i} data={item}
@@ -43,7 +46,7 @@ type ItemState = {
 
 function humanizeUntil(until: number): string {
     const delta = until - moment.utc().unix();
-    return delta <= 0 ? "Until" : moment.duration(delta * 1000).humanize();
+    return delta <= 0 ? "EXPIRED" : moment.duration(delta * 1000).humanize();
 }
 
 class SilentPatternListItem extends React.Component<ItemProps, ItemState> {
@@ -59,13 +62,19 @@ class SilentPatternListItem extends React.Component<ItemProps, ItemState> {
 
     render(): React.Node {
         const {onRemove, data} = this.props;
-        const {pattern, until} = data;
+        const {pattern, login, created_at, until} = data;
         return (
             <div className={cn("row")}>
                 <div
                     className={cn("name")}>
                     {pattern}
                 </div>
+                <div
+                    className={cn("login")}>
+                    {login}
+                </div>
+                <div className={cn("created_at")}>{moment.unix(created_at).format("MMMM D, HH:mm:ss")}</div>
+
                 <div className={cn("controls")}>
                     <Dropdown caption={humanizeUntil(until)} use="link">
                         {Object.keys(TimeOffsets).map(key => (
@@ -74,6 +83,9 @@ class SilentPatternListItem extends React.Component<ItemProps, ItemState> {
                             </MenuItem>
                         ))}
                     </Dropdown>
+
+                </div>
+                <div className={cn("trash")}>
                     <Button use="link" icon="Trash" onClick={onRemove}>
                         Del
                     </Button>
