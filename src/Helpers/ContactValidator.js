@@ -3,6 +3,32 @@ import * as React from "react";
 import { type ContactConfig } from "../Domain/Config";
 import type { ValidationInfo } from "react-ui-validations";
 
+const protocolAndDomainRE = /^(?:http|https):\/\/(\S+)$/;
+const ip10xRe = /^10\.\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b(?::\d+)$/;
+const nonLocalhostDomainRE = /^[^\s.]+\.avito\.ru(?::\d+)?$/;
+
+
+function isUrl(string){
+    if (typeof string !== 'string') {
+        return false;
+    }
+
+    let match = string.match(protocolAndDomainRE);
+    if (!match) {
+        return false;
+    }
+
+    let everythingAfterProtocol = match[1];
+    if (!everythingAfterProtocol) {
+        return false;
+    }
+
+    return ip10xRe.test(everythingAfterProtocol) ||
+        nonLocalhostDomainRE.test(everythingAfterProtocol);
+
+}
+
+
 export default function validateContact(contactConfig: ContactConfig, value: string): ?ValidationInfo {
     const contactType = contactConfig.type;
     switch (contactType) {
@@ -27,6 +53,13 @@ export default function validateContact(contactConfig: ContactConfig, value: str
         case "slack": {
             if (value == null || value.trim() === "") {
                 return { message: "Enter a valid telegram #channel, @username or group", type: "submit" };
+            }
+            break;
+        }
+
+        case "webhook": {
+            if (value == null || value.trim() === "" || !isUrl(value)) {
+                return { message: "Enter valid url", type: "submit" };
             }
             break;
         }

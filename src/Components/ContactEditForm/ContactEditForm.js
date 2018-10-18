@@ -48,6 +48,10 @@ export default class ContactEditForm extends React.Component<Props> {
         if (contactType === "email") {
             return "Enter email address";
         }
+
+        if (contactType === "webhook") {
+            return "Enter webhook url";
+        }
         if (contactConfig.title != null) {
             return contactConfig.title;
         }

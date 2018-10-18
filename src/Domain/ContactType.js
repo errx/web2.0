@@ -8,6 +8,7 @@ export const ContactTypes = {
     slack: "slack",
     ["twilio sms"]: "twilio sms",
     ["twilio voice"]: "twilio voice",
+    webhook: "webhook",
 };
 
 const ContactTypeCaptions = {
@@ -18,6 +19,7 @@ const ContactTypeCaptions = {
     "twilio sms": "Twilio SMS",
     "twilio voice": "Twilio voice",
     slack: "slack",
+    webhook: "WebHook",
 };
 
 export function getContactTypeCaption(contactConfig: ContactConfig): string {

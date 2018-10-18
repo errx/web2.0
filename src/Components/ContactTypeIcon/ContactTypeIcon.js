@@ -29,8 +29,10 @@ export default function ContactTypeIcon({ type }: Props): React.Element<any> {
     if (type === "twilio sms") {
         return <SvgIcon path={TwilioLogo} size={14} offsetTop={2} />;
     }
+    if (type === "webhook") {
+        return <Icon name={"Link"} />;
+    }
     if (type.includes("sms")) {
-        return <Icon name={"DeviceSmartphone"} />;
     }
     if (type.includes("mail")) {
         return <Icon name={"Mail2"} />;

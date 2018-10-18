@@ -47,6 +47,9 @@ class SettingsContainer extends React.Component<Props, State> {
             }
             return result;
         }
+        if (contactType === "webhook") {
+            return result.toLowerCase()
+        }
         return result;
     }
 
