@@ -4,8 +4,8 @@ import { type ContactConfig } from "../Domain/Config";
 import type { ValidationInfo } from "react-ui-validations";
 
 const protocolAndDomainRE = /^(?:http|https):\/\/(\S+)$/;
-const ip10xRe = /^10\.\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b(?::\d+)$/;
-const nonLocalhostDomainRE = /^[^\s.]+\.avito\.ru(?::\d+)?$/;
+const ip10xRe = /^10\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(?::\d+)?/;
+const nonLocalhostDomainRE = /^.+\.avito\.ru(?::\d+)?/;
 
 
 function isUrl(string){
