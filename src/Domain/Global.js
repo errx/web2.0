@@ -21,6 +21,7 @@ export const PagesLinks = {
     tags: "/tags",
     patterns: "/patterns",
     docs: "//moira.readthedocs.org/",
+    silent_patterns: "/silent_patterns",
 };
 
 export type PagePath = $Keys<typeof PagesPaths>;

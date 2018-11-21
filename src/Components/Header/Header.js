@@ -22,6 +22,9 @@ export default function Header(props: Props): React.Node {
                     <RouterLink to={getPageLink("settings")} icon="Settings">
                         Notifications
                     </RouterLink>
+                    <RouterLink to={getPageLink("silent_patterns")} icon="EyeClosed">
+                        Silent Patterns
+                    </RouterLink>
                     <LinkUI href={getPageLink("docs")} icon="HelpBook">
                         Help
                     </LinkUI>
